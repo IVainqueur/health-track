@@ -1,0 +1,4 @@
+*.ignorable.*
+node_modules
+npm-debug.log
+*.sqlite

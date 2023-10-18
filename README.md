@@ -7,6 +7,8 @@ Later on, the data will also be analysed by a machine learning algorithm to pred
 ## Current progress
 The project is still in development. The current progress is:
 - everything that's need for the backend is ready 🤗
+- front-end data visualization is ready 🤗
+![](./demos/demo.gif)
 
 ## Technologies
 - Nodejs

@@ -258,7 +258,7 @@
     </div>
 
     <h1
-      class="selected-patient font-bold text-xl text-gray-500 dark:text-gray-400 mt-8"
+      class="selected-patient font-bold text-xl text-gray-500 dark:text-gray-400 mt-8 max-w-screen-xl mx-auto"
     ></h1>
 
     <canvas id="myChart" class="max-w-screen-xl mx-auto mt-8"></canvas>
@@ -371,10 +371,11 @@
             options: {
               scales: {
                 temperature: {
-                  beginAtZero: true,
+                  backgroundColor: '#3086c190',
                 },
                 heart_rate: {
                   position: "right",
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 },
               },
             },

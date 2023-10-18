@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health-Track</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#fdf2f8",
+                100: "#fce7f3",
+                200: "#fbcfe8",
+                300: "#f9a8d4",
+                400: "#f472b6",
+                500: "#ec4899",
+                600: "#db2777",
+                700: "#be185d",
+                800: "#9d174d",
+                900: "#831843",
+                950: "#500724",
+              },
+            },
+          },
+          fontFamily: {
+            body: [
+              "Inter",
+              "ui-sans-serif",
+              "system-ui",
+              "-apple-system",
+              "system-ui",
+              "Segoe UI",
+              "Roboto",
+              "Helvetica Neue",
+              "Arial",
+              "Noto Sans",
+              "sans-serif",
+              "Apple Color Emoji",
+              "Segoe UI Emoji",
+              "Segoe UI Symbol",
+              "Noto Color Emoji",
+            ],
+            sans: [
+              "Inter",
+              "ui-sans-serif",
+              "system-ui",
+              "-apple-system",
+              "system-ui",
+              "Segoe UI",
+              "Roboto",
+              "Helvetica Neue",
+              "Arial",
+              "Noto Sans",
+              "sans-serif",
+              "Apple Color Emoji",
+              "Segoe UI Emoji",
+              "Segoe UI Symbol",
+              "Noto Color Emoji",
+            ],
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="h-screen dark:bg-gray-800 px-8">
+    <!-- back to top button -->
+    <button
+      type="button"
+      data-te-ripple-init
+      data-te-ripple-color="light"
+      class="!fixed bottom-5 right-5 hidden rounded-full bg-red-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg"
+      id="btn-back-to-top"
+    >
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        class="h-4 w-4"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+      >
+        <path
+          fill="currentColor"
+          d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
+        ></path>
+      </svg>
+    </button>
+    <script>
+      const mybutton = document.getElementById("btn-back-to-top");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+
+      const scrollFunction = () => {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          mybutton.classList.remove("hidden");
+        } else {
+          mybutton.classList.add("hidden");
+        }
+      };
+      const backToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      // When the user clicks on the button, scroll to the top of the document
+      mybutton.addEventListener("click", backToTop);
+
+      window.addEventListener("scroll", scrollFunction);
+    </script>
+    <header>
+      <nav
+        class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800"
+      >
+        <div
+          class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
+        >
+          <a href="/" class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="2048"
+              height="2048"
+              viewBox="0 0 2048 2048"
+              class="h-8 w-8 mr-2"
+            >
+              <path
+                fill="#ec4899"
+                d="M1504 128q113 0 212 42t172 116t116 173t43 212q0 58-12 115t-36 110h-463l-192-200l-320 320l-448-448l-320 328H49q-24-53-36-110T1 671q0-113 42-212t116-172t173-116t212-43q109 0 208 41t177 118l95 96l95-96q77-77 176-118t209-41zm-96 896h510l-14 16q-7 8-15 17l-865 864l-865-864q-8-8-15-16t-14-17h254l192-184l448 448l320-320l64 56z"
+              />
+            </svg>
+            <span
+              class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+              >Health Track</span
+            >
+          </a>
+          <div class="flex items-center lg:order-2 gap-2">
+            <div
+              class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+              id="mobile-menu-2"
+            >
+              <div class="dark-mode-settle flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="dark:text-white"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 17.75A5.75 5.75 0 1 1 17.75 12A5.76 5.76 0 0 1 12 17.75Zm0-10A4.25 4.25 0 1 0 16.25 12A4.26 4.26 0 0 0 12 7.75ZM12 5a.76.76 0 0 1-.75-.75v-1.5a.75.75 0 0 1 1.5 0v1.5A.76.76 0 0 1 12 5Zm0 17a.76.76 0 0 1-.75-.75v-1.5a.75.75 0 0 1 1.5 0v1.5A.76.76 0 0 1 12 22Zm9.25-9.25h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5Zm-17 0h-1.5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 0 1.5Zm2.25-5.5A.74.74 0 0 1 6 7L4.91 6A.75.75 0 1 1 6 4.91L7 6a.75.75 0 0 1 0 1a.74.74 0 0 1-.5.25Zm12.06 12.06a.74.74 0 0 1-.53-.22L17 18a.75.75 0 0 1 1-1l1.09 1a.75.75 0 0 1 0 1.06a.74.74 0 0 1-.53.25ZM17.5 7.25A.74.74 0 0 1 17 7a.75.75 0 0 1 0-1l1-1.09A.75.75 0 1 1 19.09 6L18 7a.74.74 0 0 1-.5.25ZM5.44 19.31a.74.74 0 0 1-.53-.22a.75.75 0 0 1 0-1.06L6 17a.75.75 0 0 1 1 1l-1 1.09a.74.74 0 0 1-.56.22Z"
+                  />
+                </svg>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" value="" class="sr-only peer" />
+                  <div
+                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"
+                  ></div>
+                </label>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  class="dark:text-white"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.684 7.684 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.28 7.28 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675Z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.332 2.332 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.332 2.332 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.332 2.332 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.332 2.332 0 0 1-2.588 0l-.945-.63Z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <a
+              href="https://github.com/IVainqueur/health-track"
+              class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center gap-2"
+              target="_blank"
+              >Visit Repo
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7Z"
+                />
+              </svg>
+            </a>
+
+            <button
+              data-collapse-toggle="mobile-menu-2"
+              type="button"
+              class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="mobile-menu-2"
+              aria-expanded="false"
+            >
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <svg
+                class="hidden w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div
+      class="relative overflow-x-auto shadow-md sm:rounded-lg mx-auto max-w-screen-xl mt-10"
+    >
+      <h1 class="text-gray-500 dark:text-gray-400 text-3xl font-bold my-4">
+        Patients
+      </h1>
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Patient Name</th>
+            <th scope="col" class="px-6 py-3">National ID</th>
+            <th scope="col" class="px-6 py-3">Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h1
+      class="selected-patient font-bold text-xl text-gray-500 dark:text-gray-400 mt-8"
+    ></h1>
+
+    <canvas id="myChart" class="max-w-screen-xl mx-auto mt-8"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      const themeToggle = document.querySelector(".dark-mode-settle input");
+      //   window.onload = () => {
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      themeToggle.checked = document.documentElement.classList.contains("dark");
+      //   };
+
+      themeToggle.addEventListener("change", function (e) {
+        if (e.target.checked) {
+          document.documentElement.classList.add("dark");
+          localStorage.theme = "dark";
+        } else {
+          document.documentElement.classList.remove("dark");
+          localStorage.theme = "light";
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("myChart");
+      let myChart = null;
+
+      const fetchPatientData = async () => {
+        const response = await fetch("/api/record");
+        const data = await response.json();
+        console.log({ data });
+        populateTable(data);
+      };
+
+      const populateTable = (data) => {
+        if (!Array.isArray(data)) return;
+        const table = document.querySelector("table tbody");
+        data.forEach((patient) => {
+          const tr = document.createElement("tr");
+          const th = document.createElement("th");
+          const td = document.createElement("td");
+          const td2 = document.createElement("td");
+          const a = document.createElement("a");
+          a.href = "#myChart";
+          a.onclick = () => populateChart(patient.name, patient.records);
+          a.classList.add(
+            "font-medium",
+            "text-blue-600",
+            "dark:text-blue-500",
+            "hover:underline"
+          );
+          a.textContent = "Visualize";
+          td2.appendChild(a);
+          th.classList.add(
+            "px-6",
+            "py-4",
+            "font-medium",
+            "text-gray-900",
+            "whitespace-nowrap",
+            "dark:text-white"
+          );
+          th.textContent = patient.name;
+          td.classList.add("px-6", "py-4");
+          td.textContent = patient.national_id;
+          tr.appendChild(th);
+          tr.appendChild(td);
+          tr.appendChild(td2);
+          table.appendChild(tr);
+        });
+      };
+
+      const populateChart = (name, data) => {
+        const selectedPatient = document.querySelector(".selected-patient");
+        selectedPatient.textContent = `${name}'s records`;
+
+        const chartData = {
+          labels: data.map((d) => d.created_at),
+          datasets: [
+            {
+              label: "Temperature",
+              data: data.map((d) => d.body_temperature),
+              yAxisID: "temperature",
+            },
+            {
+              label: "Heart Rate",
+              data: data.map((d) => d.heart_rate).reverse(),
+              yAxisID: "heart_rate",
+            },
+          ],
+        };
+
+        if (myChart) {
+          console.log("updating");
+          myChart.data = chartData;
+          myChart.update();
+        } else {
+          myChart = new Chart(ctx, {
+            type: "line",
+            data: chartData,
+            options: {
+              scales: {
+                temperature: {
+                  beginAtZero: true,
+                },
+                heart_rate: {
+                  position: "right",
+                },
+              },
+            },
+          });
+        }
+      };
+
+      fetchPatientData();
+    </script>
+  </body>
+</html>
